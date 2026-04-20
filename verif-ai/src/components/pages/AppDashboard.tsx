@@ -23,22 +23,38 @@ const AppDashboard: React.FC = () => {
   return (
     <div className="flex flex-col gap-8">
       {/* Tab Controller */}
-      <div className="flex justify-center">
-        <div className="glass flex gap-1 p-1.5 ring-1 ring-white/5">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setTab(tab.id)}
-              className={`flex items-center gap-2 rounded-xl px-6 py-3 font-body text-sm font-bold tracking-wide transition-all duration-300 ${
-                activeTab === tab.id
-                  ? 'bg-accent text-bg-void shadow-[0_0_20px_rgba(0,240,160,0.3)]'
-                  : 'text-text-3 hover:bg-white/5 hover:text-text-1'
-              }`}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
+      <div className="flex justify-center mb-4" style={{height: "4rem"}}>
+        <div className="glass relative flex gap-1 p-1.5 ring-1 ring-white/10 shadow-2xl">
+          {/* Sliding Indicator */}
+          <motion.div
+            className="absolute inset-y-1.5 rounded-[12px] bg-accent shadow-[0_0_25px_rgba(0,240,160,0.4)]"
+            initial={false}
+            animate={{
+              x: (tabs.findIndex(t => t.id === activeTab) * (150 + 4)) + 6,
+              width: 150,
+            }}
+            transition={{ type: "spring", stiffness: 350, damping: 30 }}
+          />
+
+          {tabs.map((tab, idx) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setTab(tab.id)}
+                className={`relative z-10 flex w-[150px] items-center justify-center gap-2.5 rounded-xl py-3 font-body text-[13px] font-bold tracking-wide transition-colors duration-300 ${
+                  isActive
+                    ? 'text-bg-void'
+                    : 'text-text-3 hover:text-text-1'
+                }`}
+              >
+                <div className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'scale-100 opacity-70'}`}>
+                  {tab.icon}
+                </div>
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 

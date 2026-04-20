@@ -48,7 +48,7 @@ const ScanTab: React.FC = () => {
       <div className="scan-wrap">
         <div className="glass scan-panel">
           {/* Sub-tabs for scan mode */}
-          <div className="mb-8 flex justify-center gap-2 border-b border-white/5 pb-6">
+          <div className="mb-8 flex justify-center gap-4 border-b border-white/5 pb-6" style={{height: "2rem", margin: "1rem", padding: "1rem"}}>
             <button
               onClick={() => setScanMode('manual')}
               className={`flex items-center gap-2 rounded-xl px-6 py-2.5 text-xs font-bold tracking-wider transition-all ${
@@ -69,8 +69,7 @@ const ScanTab: React.FC = () => {
 
           <div className="space-y-8">
             {scanMode === 'manual' ? (
-              <div className="space-y-4">
-                <div className="scan-hero-icon mx-auto"><Search size={32} /></div>
+              <div className="space-y-4" style={{padding: "1rem"}}>
                 <div className="scan-title">Manual Verification</div>
                 <p className="text-sm text-text-3">Enter the unique Token ID found on the product packaging</p>
                 <div className="scan-input-row">
